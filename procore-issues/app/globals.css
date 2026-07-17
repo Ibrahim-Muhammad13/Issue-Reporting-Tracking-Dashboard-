@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    border-color: #e5e7eb;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    @apply bg-surface text-ink font-sans;
+    font-feature-settings: "tnum" 1, "cv11" 1;
+  }
+
+  ::selection {
+    background-color: #fde3d0;
+  }
+
+  :focus-visible {
+    outline: 2px solid #f46a21;
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* Slim, understated scrollbars for a data-dense app */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #d1d5db;
+    border-radius: 8px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #9ca3af;
+  }
+}
+
+@layer components {
+  .skeleton {
+    background-image: linear-gradient(
+      90deg,
+      #eef0f2 0px,
+      #f6f7f8 40px,
+      #eef0f2 80px
+    );
+    background-size: 600px;
+    @apply animate-shimmer rounded-md;
+  }
+}
+
+@layer utilities {
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
