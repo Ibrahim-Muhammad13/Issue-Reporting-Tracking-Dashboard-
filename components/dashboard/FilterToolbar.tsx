@@ -34,9 +34,9 @@ export function FilterToolbar({
     filters.sortBy !== "newest";
 
   return (
-    <div className="rounded-lg border border-border bg-white p-3.5 shadow-card">
-      <div className="flex flex-wrap items-end gap-3">
-        <div className="min-w-[220px] flex-1">
+    <div className="rounded-lg border border-border bg-white p-3 shadow-card sm:p-3.5">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4 2xl:flex 2xl:flex-wrap 2xl:items-end">
+        <div className="min-w-0 sm:col-span-2 xl:col-span-1 2xl:min-w-[220px] 2xl:flex-1">
           <label className="mb-1 block text-xs font-medium text-ink-secondary">Search Issues</label>
           <div className="relative">
             <Search className="pointer-events-none absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-faint" />
@@ -54,42 +54,42 @@ export function FilterToolbar({
           value={filters.status}
           onChange={(v) => onChange({ status: v })}
           options={withAll(["Open", "In Progress", "Resolved", "Blocked"])}
-          className="w-36"
+          className="w-full sm:w-auto sm:min-w-[9rem]"
         />
         <Select
           label="Priority"
           value={filters.priority}
           onChange={(v) => onChange({ priority: v })}
           options={withAll(["High", "Medium", "Low"])}
-          className="w-32"
+          className="w-full sm:w-auto sm:min-w-[8rem]"
         />
         <Select
           label="Site"
           value={filters.site}
           onChange={(v) => onChange({ site: v })}
           options={withAll(SITES)}
-          className="w-48"
+          className="w-full sm:w-auto sm:min-w-[12rem]"
         />
         <Select
           label="Location"
           value={filters.location}
           onChange={(v) => onChange({ location: v })}
           options={withAll(locations)}
-          className="w-44"
+          className="w-full sm:w-auto sm:min-w-[11rem]"
         />
         <Select
           label="Trade"
           value={filters.trade}
           onChange={(v) => onChange({ trade: v })}
           options={withAll(TRADES)}
-          className="w-36"
+          className="w-full sm:w-auto sm:min-w-[9rem]"
         />
         <Select
           label="Assignee"
           value={filters.assignee}
           onChange={(v) => onChange({ assignee: v })}
           options={withAll(ASSIGNEES)}
-          className="w-44"
+          className="w-full sm:w-auto sm:min-w-[11rem]"
         />
         <Select
           label="Date Range"
@@ -100,7 +100,7 @@ export function FilterToolbar({
             { value: "Last 7 days", label: "Last 7 days" },
             { value: "Last 30 days", label: "Last 30 days" },
           ]}
-          className="w-36"
+          className="w-full sm:w-auto sm:min-w-[9rem]"
         />
         <Select
           label="Sort By"
@@ -112,13 +112,13 @@ export function FilterToolbar({
             { value: "priority", label: "Priority" },
             { value: "updated", label: "Recently Updated" },
           ]}
-          className="w-40"
+          className="w-full sm:w-auto sm:min-w-[10rem]"
         />
 
         <button
           onClick={onReset}
           disabled={!isDirty}
-          className="flex h-9 items-center gap-1.5 rounded-md border border-border px-3 text-sm font-medium text-ink-secondary hover:border-border-strong hover:text-ink disabled:cursor-not-allowed disabled:opacity-40"
+          className="flex h-9 w-full items-center justify-center gap-1.5 rounded-md border border-border px-3 text-sm font-medium text-ink-secondary hover:border-border-strong hover:text-ink disabled:cursor-not-allowed disabled:opacity-40 sm:w-auto sm:justify-start 2xl:self-end"
         >
           <RotateCcw className="h-3.5 w-3.5" />
           Reset Filters

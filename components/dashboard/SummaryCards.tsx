@@ -67,11 +67,11 @@ export function SummaryCards({
   ];
 
   return (
-    <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-5">
+    <div className="grid grid-cols-1 gap-3 min-[480px]:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
       {kpis.map((kpi) => (
         <div
           key={kpi.label}
-          className="rounded-lg border border-border bg-white p-4 shadow-card"
+          className="rounded-lg border border-border bg-white p-3.5 shadow-card sm:p-4"
         >
           <div className="flex items-center justify-between">
             <span className={cn("flex h-8 w-8 items-center justify-center rounded-md", kpi.iconBg)}>
@@ -79,7 +79,7 @@ export function SummaryCards({
             </span>
             <span
               className={cn(
-                "flex items-center gap-0.5 text-xs font-medium",
+                "hidden items-center gap-0.5 text-xs font-medium min-[480px]:flex",
                 kpi.trend.positive ? "text-success-DEFAULT" : "text-danger-DEFAULT"
               )}
             >
@@ -98,7 +98,8 @@ export function SummaryCards({
               kpi.trend.positive ? "text-success-DEFAULT" : "text-ink-faint"
             )}
           >
-            {kpi.trend.value}
+            <span className="min-[480px]:hidden">{kpi.trend.value.split(" ")[0]}</span>
+            <span className="hidden min-[480px]:inline">{kpi.trend.value}</span>
           </p>
         </div>
       ))}

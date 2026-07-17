@@ -51,10 +51,10 @@ export function IssueDrawer({
         role="dialog"
         aria-modal="true"
         aria-label={`Issue details for ${issue.id}`}
-        className="relative flex h-full w-full max-w-[520px] animate-slide-in flex-col bg-white shadow-drawer"
+        className="relative flex h-full w-full max-w-[520px] animate-slide-in flex-col bg-white shadow-drawer sm:max-w-[520px]"
       >
         {/* Header */}
-        <div className="flex items-start justify-between gap-4 border-b border-border px-5 py-4">
+        <div className="flex items-start justify-between gap-3 border-b border-border px-4 py-4 sm:gap-4 sm:px-5">
           <div className="min-w-0">
             <p className="text-xs font-medium text-ink-secondary">{issue.id}</p>
             <h2 className="mt-0.5 text-lg font-semibold leading-snug text-ink">{issue.title}</h2>
@@ -73,7 +73,7 @@ export function IssueDrawer({
         </div>
 
         {/* Scrollable content */}
-        <div className="flex-1 overflow-y-auto px-5 py-5">
+        <div className="flex-1 overflow-y-auto px-4 py-4 sm:px-5 sm:py-5">
           <section>
             <p className="mb-1.5 text-xs font-semibold uppercase tracking-wide text-ink-secondary">
               Description
@@ -81,7 +81,7 @@ export function IssueDrawer({
             <p className="text-sm leading-relaxed text-ink">{issue.description}</p>
           </section>
 
-          <section className="mt-5 grid grid-cols-2 gap-x-4 gap-y-3 rounded-lg border border-border bg-surface p-4">
+          <section className="mt-5 grid grid-cols-1 gap-x-4 gap-y-3 rounded-lg border border-border bg-surface p-4 sm:grid-cols-2">
             <Field label="Construction Site" value={issue.site} icon={MapPin} />
             <Field label="Exact Location" value={issue.location} />
             <Field label="Trade" value={issue.trade} />
@@ -99,7 +99,7 @@ export function IssueDrawer({
             {issue.attachments.length === 0 ? (
               <p className="text-sm text-ink-secondary">No attachments uploaded for this issue.</p>
             ) : (
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
                 {issue.attachments.map((a) => (
                   <div
                     key={a.id}

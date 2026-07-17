@@ -31,11 +31,23 @@ export function DashboardApp() {
   const [selectedIssueId, setSelectedIssueId] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 650);
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    if (!sidebarOpen) return;
+
+    function handleResize() {
+      if (window.innerWidth >= 1024) setSidebarOpen(false);
+    }
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [sidebarOpen]);
 
   function pushToast(message: string) {
     toastCounter += 1;
@@ -194,13 +206,17 @@ export function DashboardApp() {
 
   return (
     <div className="flex h-screen flex-col overflow-hidden bg-surface">
-      <TopNav searchValue={filters.search} onSearchChange={(v) => handleFilterChange({ search: v })} />
-      <div className="flex flex-1 overflow-hidden">
-        <Sidebar />
-        <main className="flex-1 overflow-y-auto">
-          <div className="mx-auto flex max-w-[1440px] flex-col gap-5 px-6 py-6">
+      <TopNav
+        searchValue={filters.search}
+        onSearchChange={(v) => handleFilterChange({ search: v })}
+        onMenuClick={() => setSidebarOpen(true)}
+      />
+      <div className="flex min-h-0 flex-1 overflow-hidden">
+        <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+        <main className="min-w-0 flex-1 overflow-y-auto">
+          <div className="mx-auto flex max-w-[1440px] flex-col gap-4 px-4 py-4 sm:gap-5 sm:px-6 sm:py-6">
             <div>
-              <h1 className="text-xl font-semibold tracking-tight text-ink">
+              <h1 className="text-lg font-semibold tracking-tight text-ink sm:text-xl">
                 Issue Reporting &amp; Tracking Dashboard
               </h1>
               <p className="mt-1 text-sm text-ink-secondary">
@@ -228,7 +244,10 @@ export function DashboardApp() {
               issues={filteredIssues}
               allIssuesCount={issues.length}
               isLoading={isLoading}
-              onSelect={(issue) => setSelectedIssueId(issue.id)}
+              onSelect={(issue) => {
+                setSelectedIssueId(issue.id);
+                setSidebarOpen(false);
+              }}
               onResetFilters={handleResetFilters}
             />
           </div>

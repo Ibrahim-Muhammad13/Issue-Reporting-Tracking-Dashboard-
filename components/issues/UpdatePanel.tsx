@@ -29,7 +29,7 @@ export function UpdatePanel({
       <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-ink-secondary">
         Update Issue
       </p>
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <Select
           label="Status"
           value={status}
@@ -56,7 +56,7 @@ export function UpdatePanel({
           value={assignee}
           onChange={onAssigneeChange}
           options={ASSIGNEES.map((a) => ({ value: a, label: a }))}
-          className="col-span-2"
+          className="col-span-1 sm:col-span-2"
         />
       </div>
       <button

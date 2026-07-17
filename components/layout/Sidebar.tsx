@@ -1,12 +1,13 @@
 "use client";
 
 import {
-  LayoutGrid,
-  FolderKanban,
-  ListChecks,
   BarChart3,
-  Users,
+  FolderKanban,
+  LayoutGrid,
+  ListChecks,
   Settings,
+  Users,
+  X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -19,9 +20,41 @@ const NAV_ITEMS = [
   { label: "Settings", icon: Settings },
 ];
 
-export function Sidebar() {
+export function Sidebar({
+  isOpen = false,
+  onClose,
+}: {
+  isOpen?: boolean;
+  onClose?: () => void;
+}) {
   return (
-    <aside className="flex w-56 shrink-0 flex-col border-r border-border bg-white">
+    <>
+      {isOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-ink/30 lg:hidden"
+          onClick={onClose}
+          aria-hidden="true"
+        />
+      )}
+
+      <aside
+        className={cn(
+          "fixed inset-y-0 left-0 z-50 flex w-64 max-w-[85vw] flex-col border-r border-border bg-white shadow-panel transition-transform duration-200 lg:static lg:z-auto lg:w-56 lg:max-w-none lg:shrink-0 lg:translate-x-0 lg:shadow-none",
+          isOpen ? "translate-x-0" : "-translate-x-full"
+        )}
+      >
+        <div className="flex items-center justify-between border-b border-border px-3 py-3 lg:hidden">
+          <span className="text-sm font-semibold text-ink">Navigation</span>
+          <button
+            type="button"
+            onClick={onClose}
+            className="rounded-md p-1.5 text-ink-secondary hover:bg-surface hover:text-ink"
+            aria-label="Close navigation menu"
+          >
+            <X className="h-4.5 w-4.5" />
+          </button>
+        </div>
+
       <nav className="flex flex-col gap-0.5 p-3">
         {NAV_ITEMS.map((item) => {
           const isActive = item.label === "Issues";
@@ -31,6 +64,7 @@ export function Sidebar() {
               key={item.label}
               type="button"
               aria-current={isActive ? "page" : undefined}
+              onClick={onClose}
               className={cn(
                 "flex items-center gap-2.5 rounded-md px-3 py-2 text-sm font-medium transition-colors",
                 isActive
@@ -52,5 +86,6 @@ export function Sidebar() {
         </div>
       </div>
     </aside>
+    </>
   );
 }
